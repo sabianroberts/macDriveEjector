@@ -142,11 +142,11 @@ int main() {
     driveLetter2 = (wchar_t)toupper(temp);
 
     while (true) {
-        if (GetAsyncKeyState(VK_F1)) {
+        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F3)) {
             toggleDrive(driveLetter1, isDrive1Open); // Toggle first drive
             std::wcout << L"Opened bay A" << std::endl;
         }
-        else if (GetAsyncKeyState(VK_F2)) {
+        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F4)) {
             toggleDrive(driveLetter2, isDrive2Open); // Toggle second drive
             std::wcout << L"Opened bay B" << std::endl;
         }
