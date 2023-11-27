@@ -144,11 +144,11 @@ int main() {
     while (true) {
         if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F3)) {
             toggleDrive(driveLetter1, isDrive1Open); // Toggle first drive
-            std::wcout << L"Opened bay A" << std::endl;
+            std::wcout << L"Ejected bay A" << std::endl;
         }
         else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F4)) {
             toggleDrive(driveLetter2, isDrive2Open); // Toggle second drive
-            std::wcout << L"Opened bay B" << std::endl;
+            std::wcout << L"Ejected bay B" << std::endl;
         }
         Sleep(100); // Sleep to reduce CPU usage
     }
