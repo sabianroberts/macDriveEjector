@@ -127,6 +127,9 @@ void toggleDrive(wchar_t driveLetter, bool& isDriveOpen) {
 }
 
 int main() {
+
+    system("color 70");
+
     std::ifstream inFile("drive_letters.txt");
     if (!inFile)
     {
