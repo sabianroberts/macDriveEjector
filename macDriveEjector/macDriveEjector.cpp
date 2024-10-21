@@ -1,93 +1,9 @@
-// macDriveEjector <--> © 2023 Sabian Roberts All Rights Reserved
+// macDriveEjector <--> © 2023-2024 Sabian Roberts All Rights Reserved
 //
 
 #include <windows.h>
 #include <iostream>
 #include <fstream>
-
-NOTIFYICONDATA nid;
-
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-    switch (msg)
-    {
-    case WM_CREATE:
-        nid.cbSize = sizeof(NOTIFYICONDATA);
-        nid.hWnd = hwnd;
-        nid.uID = 1;
-        nid.uVersion = NOTIFYICON_VERSION;
-        nid.uCallbackMessage = WM_APP;
-        nid.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-        wcscpy_s(nid.szTip, L"MyApp");
-        nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
-        Shell_NotifyIcon(NIM_ADD, &nid);
-        break;
-
-    case WM_SIZE:
-        if (wParam == SIZE_MINIMIZED)
-        {
-            // Hide the window and remove it from the taskbar
-            ShowWindow(hwnd, SW_HIDE);
-            SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_TOOLWINDOW & ~WS_EX_APPWINDOW);
-        }
-        else
-        {
-            // Show the window and add it to the taskbar
-            ShowWindow(hwnd, SW_SHOW);
-            SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_APPWINDOW & ~WS_EX_TOOLWINDOW);
-        }
-        break;
-
-    case WM_APP:
-        switch (lParam)
-        {
-        case WM_LBUTTONUP:
-            ShowWindow(hwnd, SW_RESTORE);
-            break;
-        }
-        break;
-
-    case WM_CLOSE:
-        DestroyWindow(hwnd);
-        break;
-
-    case WM_DESTROY:
-        Shell_NotifyIcon(NIM_DELETE, &nid);
-        PostQuitMessage(0);
-        break;
-    }
-    return DefWindowProc(hwnd, msg, wParam, lParam);
-}
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-    wchar_t CLASS_NAME[8] = L"MyClass";
-
-    WNDCLASS wc = { };
-
-    wc.lpfnWndProc = WndProc;
-    wc.hInstance = hInstance;
-    wc.lpszClassName = CLASS_NAME;
-
-    RegisterClass(&wc);
-
-    HWND hwnd = CreateWindowEx(0, CLASS_NAME, L"My App", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, hInstance, NULL);
-
-    if (hwnd == NULL)
-    {
-        return 0;
-    }
-
-    ShowWindow(hwnd, nCmdShow);
-
-    MSG msg = { };
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-
-    return 0;
-}
 
 bool isDrive1Open = false;
 bool isDrive2Open = false;
