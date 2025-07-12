@@ -74,18 +74,18 @@ int main() {
     driveLetter3 = (wchar_t)toupper(temp);
 
     while (true) {
-        if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F2))
+        if (GetAsyncKeyState(VK_F17))
         {
             std::wcout << L"Ejected USB SuperDrive" << std::endl;
             toggleDrive(driveLetter1, isDrive1Open); // Toggle USB SuperDrive
             std::wcout << L"Please note that the USB SuperDrive cannot be remotely closed as it is a slimline drive." << std::endl;
         }
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F3)) 
+        else if (GetAsyncKeyState(VK_F18)) 
         {
             std::wcout << L"Ejected bay A" << std::endl;
             toggleDrive(driveLetter2, isDrive2Open); // Toggle first drive
         }
-        else if (GetAsyncKeyState(VK_CONTROL) && GetAsyncKeyState(VK_F4)) 
+        else if (GetAsyncKeyState(VK_F19)) 
         {
             std::wcout << L"Ejected bay B" << std::endl;
             toggleDrive(driveLetter3, isDrive3Open); // Toggle second drive
